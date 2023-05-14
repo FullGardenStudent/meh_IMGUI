@@ -1,0 +1,6 @@
+[submodule "ft_to_atlas"]
+	path = ft_to_atlas
+	url = .\\include\\ft_to_atlas\\
+[submodule "include/ft_to_atlas"]
+	path = include/ft_to_atlas
+	url = https://github.com/FullGardenStudent/ft_to_atlas
