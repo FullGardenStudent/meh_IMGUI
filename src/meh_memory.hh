@@ -21,16 +21,16 @@ struct M_QUAD {
 
   U32 get_id() {
     index++;
-    return (index - 1);
+    return (uint32_t)(index - 1);
   }
 
   void push(MEH_QUAD &q) {
     if (index + 1 > size) {
       std::size_t i = size;
-      size = INCREASE_SIZE(i);
+      size = (size_t)INCREASE_SIZE(i);
       data = MEH_ALLOCATE(MEH_QUAD, data, i, size);
     }
-    q.id = index;
+    q.id = (uint32_t)index;
     data[index] = q;
     index++;
   }

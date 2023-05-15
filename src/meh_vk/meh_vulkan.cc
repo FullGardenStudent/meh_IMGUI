@@ -1,14 +1,13 @@
 #include "meh_vulkan.hh"
 #include "../../meh_IMGUI_widgets.hh"
 #include "../meh_memory.hh"
-//#include "../meh_widgets/meh_widgets.hh"
-#include "com_man/com_man.hh"
-#include "meh_IMGUI/src/meh_vk/meh_vulkan_objects.hh"
+#include "../meh_allocator.hh"
+#include "meh_vulkan_objects.hh"
 #include <cstdint>
 
 namespace meh {
-g_block vk_g(1024 * 1024);
-struct meh_renderer_cxt *renderer = meh_alloc(vk_g, meh_renderer_cxt);
+meh_mem_pool vk_g(1024 * 1024);
+struct meh_renderer_cxt *renderer = MEH_MEM_POOL_ADD(vk_g, meh_renderer_cxt);
 
 std::vector<const char *> device_extensions = {
     "VK_KHR_swapchain", "VK_KHR_synchronization2", "VK_KHR_create_renderpass2"};

@@ -37,7 +37,14 @@
 #define LoadFunction dlsym
 #endif
 
-#include "clog/clog.hh"
+#define CINFO
+#define CERROR
+#define CLOG_VK
+#define CSUCCESS
+#define CFATAL
+#define CLOG_RF
+
+#include <iostream>
 
 namespace meh {
 

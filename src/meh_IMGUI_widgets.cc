@@ -448,11 +448,11 @@ void update_ui(uint32_t screen_width, uint32_t screen_height, uint32_t mouse_x,
 
 void *get_init_layout(U32 &num_quads, uint32_t screen_width,
                       uint32_t screen_height) {
-  num_quads = quads.index;
+  num_quads = (U32)quads.index;
   return quads.data;
 }
 
-uint32_t get_quads_size() { return sizeof(MEH_QUAD) * quads.index; }
+uint32_t get_quads_size() { return (uint32_t)(sizeof(MEH_QUAD) * quads.index); }
 
 void *ui_data() { return quads.data; }
 

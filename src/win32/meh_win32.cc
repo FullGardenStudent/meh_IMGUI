@@ -92,19 +92,19 @@ bool init_lib(struct meh_window &window, U32 window_type) {
 }
 
 bool default_top_hit(uint32_t mousex, uint32_t mousey, long top, long left, long right, long bottom) {
-    return (mousey >= top && mousey < top + 22);
+    return (mousey >= (uint32_t)top && mousey < (uint32_t)top + 22);
 }
 
 bool default_left_hit(uint32_t mousex, uint32_t mousey, long top, long left, long right, long bottom) {
-    return (mousex >= left && mousex < left + 5);
+    return (mousex >= (uint32_t)left && mousex < (uint32_t)left + 5);
 }
 
 bool default_right_hit(uint32_t mousex, uint32_t mousey, long top, long left, long right, long bottom) {
-    return (mousex < right && mousex >= right - 5);
+    return (mousex < (uint32_t)right && mousex >= (uint32_t)right - 5);
 }
 
 bool default_bottom_hit(uint32_t mousex, uint32_t mousey, long top, long left, long right, long bottom) {
-    return (mousey < bottom && mousey > bottom-5);
+    return (mousey < (uint32_t)bottom && mousey >(uint32_t)bottom-5);
 }
 
 void set_top_hit_fn(hit_fn_ptr hit_fn) {

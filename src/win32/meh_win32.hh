@@ -3,7 +3,6 @@
 
 #ifdef _WIN32
 
-#include "clog/clog.hh"
 #include <dwmapi.h>
 
 #include <locale>

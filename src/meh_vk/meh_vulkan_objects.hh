@@ -4,6 +4,7 @@
 #include "meh_vulkan_functions.hh"
 #include "stb/stb_image.h"
 #include "vulkan/vulkan_core.h"
+#include <iostream>
 #include <algorithm>
 #include <cstdint>
 #include <cstring>
@@ -646,7 +647,7 @@ struct meh_renderer_cxt {
         U32 queue_count = 1;
         float queue_priority =
             VkQueueGlobalPriorityKHR::VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR /
-            1024.0;
+            1024;
         std::vector<VkDeviceQueueCreateInfo> device_queue_create_infos;
         std::set<U32> queue_family_indices;
         for (VkDeviceQueueInfo2 &i : queue_infos) {
@@ -837,7 +838,7 @@ struct meh_renderer_cxt {
         for (const auto &i : queue_infos) {
           queue_families.insert(i.queueFamilyIndex);
         }
-        queue_family_indices = queue_families.size();
+        queue_family_indices = (uint32_t)queue_families.size();
 
         for (const auto &i : queue_families) {
           concurrent_queue_families.push_back(i);

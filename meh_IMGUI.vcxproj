@@ -126,6 +126,7 @@
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)include\ft_to_atlas\lib</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,6 +153,7 @@
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)include\ft_to_atlas\lib</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

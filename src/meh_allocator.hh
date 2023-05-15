@@ -55,7 +55,7 @@ namespace meh {
         void* store(std::size_t size, std::size_t alignment) {
             if (used + 1 > _size) {
                 std::size_t i = size;
-                _size = INCREASE_SIZE(i);
+                _size = (size_t)INCREASE_SIZE(i);
                 memory = allocate(memory, i, _size);
             }
 

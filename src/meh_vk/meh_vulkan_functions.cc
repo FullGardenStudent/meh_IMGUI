@@ -90,7 +90,7 @@ bool LoadDeviceLevelFunctions(
     CERROR("Could not load device-level Vulkan function named: " #name);       \
     return false;                                                              \
   } else {                                                                     \
-    CINFO("Loaded vulkan function : " #name)                                   \
+    CINFO("Loaded vulkan function : " #name);                                   \
   }
 
   // Load device-level functions from enabled extensions
@@ -104,7 +104,7 @@ bool LoadDeviceLevelFunctions(
             << std::endl;                                                      \
         return false;                                                          \
       } else {                                                                 \
-        CINFO("Loaded vulkan function : " #name)                               \
+        CINFO("Loaded vulkan function : " #name);                               \
       }                                                                        \
     }                                                                          \
   }
