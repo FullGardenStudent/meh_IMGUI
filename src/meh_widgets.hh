@@ -42,7 +42,7 @@ struct MEH_QUAD {
   float uv_x, uv_y, uv_width, uv_height;
 };
 
-typedef U32 MEH_CONSTRAINT_FLAGS;
+typedef uint32_t MEH_CONSTRAINT_FLAGS;
 enum {
     MEH_CONSTRAINTS_NONE = 0,
     MEH_CONSTRAINT_FLAG_BACKGROUND = (1 << 0),

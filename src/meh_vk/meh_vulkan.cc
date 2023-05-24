@@ -143,7 +143,7 @@ bool renderer_init_ui(uint8_t *p, U32 texture_width, U32 texture_height,
   meh_texture t(texture_width, texture_height, p, *renderer);
 
   renderer->pipeline.init(
-      "..\\meh_vk_vert", "..\\meh_vk_frag", renderer->swapchain.image_extent,
+      "meh_vk_vert", "meh_vk_frag", renderer->swapchain.image_extent,
       renderer->device.handle, renderer->frame.render_pass.handle);
 
   std::vector<uint16_t> ib = {0, 1, 2, 2, 3, 0}; // index buffer

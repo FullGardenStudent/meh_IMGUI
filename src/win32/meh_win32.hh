@@ -36,8 +36,11 @@ extern "C" struct meh_window {
   POINT mouse_pos;
   
   // for delta time
-  LARGE_INTEGER frequency, current_time, previous_time;
-  double delta_time, total_time=0.0;
+  LARGE_INTEGER frequency;
+  LARGE_INTEGER current_time;
+  LARGE_INTEGER previous_time;
+  double delta_time;
+  double total_time = 0.0;
 };
 
 typedef bool (*hit_fn_ptr)(uint32_t x, uint32_t y, long top, long left, long right, long bottom);
@@ -63,6 +66,7 @@ typedef BOOL(WINAPI *WINPFN_TranslateMessage)(MSG *);
 typedef LRESULT(WINAPI *WINPFN_DispatchMessageW)(MSG *);
 // typedef BOOL(WINAPI *WINPFN_GetMessageW)(LPMSG, HWND, UINT, UINT);
 typedef BOOL(WINAPI *WINPFN_PeekMessageW)(LPMSG, HWND, UINT, UINT, UINT);
+typedef BOOL(WINAPI* WINPFN_GetMessageW)(LPMSG, HWND, UINT, UINT);
 typedef BOOL(WINAPI *WINPFN_AdjustWindowRectEx)(LPRECT, DWORD, BOOL, DWORD);
 typedef BOOL(WINAPI *WINPFN_GetWindowRect)(HWND, LPRECT);
 typedef BOOL(WINAPI *WINPFN_SetWindowPos)(HWND, HWND, int, int, int, int, UINT);

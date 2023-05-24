@@ -232,6 +232,7 @@ bool interpolate(MEH_WIDGET *widget_1, MEH_WIDGET *widget_2);
 MEH_WIDGET *button(std::string_view text, uint32_t widget_flag = WRAP_CONTENT,
                    uint32_t weight = 0);
 MEH_WIDGET *text_layout(std::string_view text);
+  void update_text(MEH_WIDGET* widget, std::string_view text);
   MEH_WIDGET *icon_button(uint32_t size, MEH_ICON icon,uint32_t flag = 0, uint32_t gravity=0, uint32_t weight=0);
 MEH_WIDGET *custom_icon_button(uint32_t width, uint32_t height,
                                MEH_ICON icon_uv, uint32_t widget_flag = WRAP_CONTENT,

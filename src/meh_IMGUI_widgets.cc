@@ -70,6 +70,46 @@ MEH_WIDGET *button(std::string_view text, uint32_t widget_flag,
   return widgets.push(w);
 }
 
+MEH_WIDGET *text_layout(std::string_view text) {
+  MEH_QUAD q = {QUAD_FLAG_NONE,
+                QUAD_TYPE_TEXT_LAYOUT,
+                0,
+                0,
+                0,
+                get_text_length(text, 0, 1.0),
+                get_text_max_height(text, 0, 1.0),
+                0.0,
+                0.0,
+                1.0,
+                1.0};
+  quads.push(q);
+  MEH_WIDGET_DATA w = {};
+  w.quad = &quads.data[quads.index - 1];
+  //w.flag = widget_flag;
+  w.p_data = glyph.push(text, QUAD_TYPE_TEXT_LAYOUT, &quads);
+  //w.weight = weight;
+  w.custom = false;
+
+  if (widgets.recording) {
+    return widgets.add(w);
+  }
+
+  return widgets.push(w);
+}
+
+  void update_text(MEH_WIDGET* widget, std::string_view text){
+      U32 id = widget->id >> 4;
+    if (widget->id & 0x1) {
+      widgets.root[id].p_data = glyph.update_text(text,QUAD_TYPE_TEXT_LAYOUT, &quads,
+							       (meh::MEH_GLYPH::MEH_CHARACTER*)widgets.root[id].p_data);
+    } else {
+      widgets.data[id].p_data = glyph.update_text(text,QUAD_TYPE_TEXT_LAYOUT, &quads,
+							(meh::MEH_GLYPH::MEH_CHARACTER*)widgets.data[id].p_data);
+    }
+    //glyph.disassemble();
+    //quads.disassemble();
+  }
+
 MEH_WIDGET *custom_icon_button(uint32_t width, uint32_t height,
                                MEH_ICON icon_uv, uint32_t widget_flag,
 			       uint32_t gravity_flag, uint32_t weight){
@@ -307,6 +347,14 @@ void set_widget_properties(MEH_WIDGET_DATA *data) {
               glyph.get_height((MEH_GLYPH::MEH_CHARACTER *)d->p_data) / 2,
           (MEH_GLYPH::MEH_CHARACTER *)d->p_data);
     }
+    if(d->quad->type == QUAD_TYPE_TEXT_LAYOUT){
+        glyph.update_glyph_pos(
+          (d->quad->x + d->quad->width / 2) -
+              glyph.get_width((MEH_GLYPH::MEH_CHARACTER *)d->p_data) / 2,
+          (d->quad->y + d->quad->height / 2) +
+              glyph.get_height((MEH_GLYPH::MEH_CHARACTER *)d->p_data) / 2,
+          (MEH_GLYPH::MEH_CHARACTER *)d->p_data);
+    }
     d = d->next;
   }
 }
@@ -386,7 +434,7 @@ void update_widget_properties() {
       }
       else if(data->constraints_flag & MEH_CONSTRAINT_LEFT_TO_RIGHT_OF){
 	left_quad = data->constraint_data->left.quad;
-	quad->x = left_quad->x + left_quad->width;
+	quad->x = left_quad->x + left_quad->width + data->margin.RIGHT;
       }
       else if(data->constraints_flag & MEH_CONSTRAINT_LEFT_TO_LEFT_OF){
 	quad->x = data->constraint_data->left.quad->x;

@@ -704,7 +704,7 @@ struct meh_renderer_cxt {
     VkFormat image_format = VK_FORMAT_B8G8R8A8_SRGB;
     VkColorSpaceKHR color_space = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
 
-    VkPresentModeKHR present_mode = VK_PRESENT_MODE_IMMEDIATE_KHR;
+    VkPresentModeKHR present_mode = VK_PRESENT_MODE_FIFO_KHR;
     VkExtent2D image_extent{0};
 
     // since all surface stuff is associated with WSI, they are
@@ -740,7 +740,7 @@ struct meh_renderer_cxt {
       U32 surface_format_count = 0;
       vkGetPhysicalDeviceSurfaceFormats2KHR(gpu, &surface_info,
                                             &surface_format_count, NULL);
-      CINFO("Surface formats : %d", surface_format_count);
+      //CINFO("Surface formats : %d", surface_format_count);
       surface_formats.resize(surface_format_count);
       for (auto &i : surface_formats) {
         i.sType = VK_STRUCTURE_TYPE_SURFACE_FORMAT_2_KHR;
@@ -883,7 +883,7 @@ struct meh_renderer_cxt {
 #ifdef _WIN32
           .compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR,
 #endif
-          .presentMode = present_mode,
+          .presentMode = VK_PRESENT_MODE_FIFO_KHR,
           .clipped = VK_TRUE,
           .oldSwapchain = old_swapchain};
 

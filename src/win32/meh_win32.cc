@@ -16,6 +16,8 @@ hit_fn_ptr left_hit;
 hit_fn_ptr right_hit;
 hit_fn_ptr bottom_hit;
 
+push_constants pc;
+
 //  static bool resize = false;
 static bool l_mouse = false;
 bool is_borderless_window = false;
@@ -131,7 +133,7 @@ LRESULT CALLBACK meh_window_proc(HWND hwnd, UINT msg, WPARAM wparam,
   switch (msg) {
   case WM_SIZING: {
       if (is_borderless_window) {
-          push_constants pc = { get_width(hwnd), get_height(hwnd), (U32)mouse_pos.x,
+          pc = { get_width(hwnd), get_height(hwnd), (U32)mouse_pos.x,
                                (U32)mouse_pos.y, 0 };
           update_ui(pc.screen_width, pc.screen_height, pc.x_pos, pc.y_pos, pc.quad_id, 0);
           update_quads();
@@ -157,7 +159,7 @@ LRESULT CALLBACK meh_window_proc(HWND hwnd, UINT msg, WPARAM wparam,
   }
   case WM_DESTROY: {
     if(is_borderless_window)
-        destroy_swapchain();    
+        destroy_swapchain();
     PostQuitMessage(0);
   } break;
   }

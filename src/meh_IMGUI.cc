@@ -68,10 +68,14 @@ bool init_renderer() {
   renderer_enabled(); 
   init_vulkan(get_width(window->hwnd), get_height(window->hwnd),
               window->h_instance, window->hwnd,
-              MEH_DEBUG_MODE::VALIDATION_ONLY);
+              MEH_DEBUG_MODE::NONE);
   window->total_time = 0.0;
-  QueryPerformanceFrequency(&window->frequency); // get the frequency of the high-resolution performance counter
-  QueryPerformanceCounter(&window->previous_time); // get the timestamp for the start of the game loop
+  window->delta_time = 0.0;
+  if (!QueryPerformanceFrequency(&window->frequency)) { // get the frequency of the high-resolution performance counter
+      std::cerr << "Failed to get performance counter frequency." << std::endl;
+      return false;
+  }
+  
 #endif
 
 #ifdef __linux
@@ -96,7 +100,6 @@ bool init_renderer() {
 
 bool init_ui() {
   update_push_constants();
-  //CINFO("initializing UI!");
   renderer_init_ui(ui_texture, t_width, t_height, pc->screen_width, pc->screen_height);
 #ifdef _WIN32
   render_frame(*pc);
@@ -157,11 +160,19 @@ void render() {
   }
 
   void calculate_delta_time(){
-    window->previous_time = window->current_time;
+    QueryPerformanceCounter(&window->previous_time); // get the current timestamp
+
+    window->delta_time = static_cast<double>(window->previous_time.QuadPart - window->current_time.QuadPart) / window->frequency.QuadPart; // calculate the delta time in seconds
+    window->total_time = static_cast<double>(window->previous_time.QuadPart) / window->frequency.QuadPart;// -static_cast<double>(window->current_time.QuadPart) / window->frequency.QuadPart;
+    //window->total_time += window->delta_time;
   }
 
   double get_total_time(){
     return window->total_time;
+  }
+
+  void* _update_window(void *data){
+    return (bool*)update_window();
   }
 
 bool update_window() {
@@ -172,11 +183,11 @@ bool update_window() {
     if (window->msg.message == WM_QUIT) {
       return 0;
     }
-  }else{
-    QueryPerformanceCounter(&window->current_time); // get the current timestamp
-
-    window->delta_time = static_cast<double>(window->current_time.QuadPart - window->previous_time.QuadPart) / window->frequency.QuadPart; // calculate the delta time in seconds
-    window->total_time += window->delta_time;
+  }//else{
+      if (!QueryPerformanceCounter(&window->current_time)) { // get the timestamp for the start of the game loop
+          std::cerr << "Failed to get start performance counter." << std::endl;
+          return false;
+	  // }
   }
   return 1;
 #endif
@@ -242,12 +253,17 @@ void set_bottom_hit(hit_fn_ptr hit_fn) {
     set_bottom_hit_fn(hit_fn);
 }
 
-bool create_window(std::string_view window_title, uint32_t x_position,
-                   uint32_t y_position, uint32_t width, uint32_t height,
-                   MEH_WINDOW_TYPE window_type) {
-  init_lib(*window, (U32)window_type);
-  return meh_window(*window, window_title, x_position, y_position, width,
-                    height, window_type);
+  void* _create_window (void* arg){
+    MEH_WINDOW_INFO* i = (MEH_WINDOW_INFO*)arg;
+    bool* b = (bool*)malloc(sizeof(bool));
+    *b = create_window(*i);
+    return b;
+  }  
+
+bool create_window(MEH_WINDOW_INFO &info) {
+  init_lib(*window, (U32)info.window_type);
+  return meh_window(*window, info.window_title, info.x_position, info.y_position, info.window_width,
+                    info.window_height, info.window_type);
 }
 #endif
 

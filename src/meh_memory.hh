@@ -6,6 +6,8 @@
 
 #include "meh_allocator.hh"
 
+typedef uint32_t U32;
+
 namespace meh {
 
 struct M_QUAD {
@@ -79,6 +81,36 @@ struct MEH_GLYPH {
              t->quad->id, t->c);
       t = t->next;
     }
+  }
+
+  MEH_CHARACTER* update_text(std::string_view text, MEH_QUAD_TYPE quad_type,
+			     M_QUAD* quads,MEH_CHARACTER* ci){
+    MEH_CHARACTER* ret_ptr = ci;
+    MEH_CHARACTER* temp_index = ci;
+    int i=0;
+    for (auto &c : text) {
+      Character C = get_char_info(c, 0);
+      MEH_QUAD* q = temp_index->quad;
+      q->width = C.char_width;
+      q->height = C.char_height;
+      q->uv_x = C.char_u;
+      q->uv_y = C.char_v;
+      q->uv_width = C.uv_width;
+      q->uv_height = C.uv_height;
+      // MEH_QUAD q = {
+      //     QUAD_FLAG_FONT, quad_type,     0,        0,        0,
+      //     C.char_width,   C.char_height, C.char_u, C.char_v, C.uv_width,
+      //     C.uv_height};
+      //quads->push(q);
+      temp_index->c = c;
+
+      // TODO: check if text to update is more than initially allocated string size
+      //temp_index = temp_index->next;
+
+      temp_index++;
+      
+    }
+    return ret_ptr;
   }
 
   MEH_CHARACTER *push(std::string_view text, MEH_QUAD_TYPE quad_type,
@@ -287,21 +319,16 @@ struct M_WIDGET {
 	append_constraint(w,pw,margin);
 	w->constraint_data->right = {margin, pw->quad};
       }
-      std::cout << "qid : " << w->quad->id << "\tright id : " << w->constraint_data->right.quad->id << std::endl;
       //std::cout << "constraint d : " << w->constraint_data->right.quad->width << std::endl;
     }
     else if((flag & MEH_CONSTRAINT_LEFT_TO_LEFT_OF) ||
        (flag & MEH_CONSTRAINT_LEFT_TO_RIGHT_OF)){
       if(w->constraint_data){
-	std::cout << "constraint data exists!" << std::endl;
 	w->constraint_data->left = {margin, pw->quad};
       }else{
-	std::cout << "constraint data does not exists!" << std::endl;
 	append_constraint(w,pw,margin);
 	w->constraint_data->left = {margin, pw->quad};
       }
-      std::cout << "qid : " << w->quad->id << "\tleft id : " << w->constraint_data->left.quad->id << std::endl;
-      //std::cout << "constraint d : " << w->constraint_data->right.quad->width << std::endl;
     }
     if((flag & MEH_CONSTRAINT_TOP_TO_TOP_OF) ||
        (flag & MEH_CONSTRAINT_TOP_TO_BOTTOM_OF)){
@@ -380,8 +407,6 @@ struct M_WIDGET {
 	  : w->constraints_flag |= MEH_CONSTRAINT_BOTTOM_TO_TOP_OF;
       }break;
     }
-    std::cout << "flag : " << w->constraints_flag << "\tpid : " << (p_id >> 4) << "\tid : " <<
-      (id >> 4) << std::endl;
     add_constraint_data(w,p_w, margin);
   }
 
