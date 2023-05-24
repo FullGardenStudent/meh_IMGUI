@@ -118,6 +118,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)include\;$(SolutionDir)include\ft_to_atlas\include;</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
