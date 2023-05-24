@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{44d82660-1aa3-4a0f-843a-69714bb6f959}</ProjectGuid>
-    <RootNamespace>examples</RootNamespace>
+    <ProjectGuid>{e529d01e-4fea-419f-a866-dc8b6aaf3004}</ProjectGuid>
+    <RootNamespace>mehIMGUIvs</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -70,13 +70,15 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(ProjectDir)build\</OutDir>
-    <IntDir>$(ProjectDir)build\</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(ProjectDir)</OutDir>
-    <IntDir>$(ProjectDir)intermediate\</IntDir>
+    <OutDir>$(SolutionDir)build\</OutDir>
+    <IntDir>$(SolutionDir)build\</IntDir>
+    <TargetName>meh_IMGUI</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)build\</OutDir>
+    <IntDir>$(SolutionDir)build\</IntDir>
+    <TargetName>meh_IMGUI</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,19 +112,25 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir);</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\;$(SolutionDir)include\ft_to_atlas\include;</AdditionalIncludeDirectories>
       <Optimization>MaxSpeed</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)build\;$(SolutionDir)include\ft_to_atlas\lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>meh_IMGUI.lib;freetype.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>freetype.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)include/ft_to_atlas/lib;</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -130,10 +138,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;MEH_USE_RENDERER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;MEH_USE_RENDERER;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir);</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\;$(SolutionDir)include\ft_to_atlas\include;</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -141,17 +149,44 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)build\;$(SolutionDir)include\ft_to_atlas\lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>meh_IMGUI.lib;freetype.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)include/ft_to_atlas/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freetype.lib;</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalDependencies>freetype.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)include/ft_to_atlas/lib;</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="basic_UI.cc" />
+    <ClInclude Include="..\include\ft_to_atlas\ft_to_atlas.hh" />
+    <ClInclude Include="..\meh_IMGUI.hh" />
+    <ClInclude Include="..\meh_IMGUI_widgets.hh" />
+    <ClInclude Include="..\src\meh_allocator.hh" />
+    <ClInclude Include="..\src\meh_default_settings.hh" />
+    <ClInclude Include="..\src\meh_memory.hh" />
+    <ClInclude Include="..\src\meh_vk\meh_vulkan.hh" />
+    <ClInclude Include="..\src\meh_vk\meh_vulkan_functions.hh" />
+    <ClInclude Include="..\src\meh_vk\meh_vulkan_objects.hh" />
+    <ClInclude Include="..\src\meh_widgets.hh" />
+    <ClInclude Include="..\src\win32\meh_win32.hh" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\meh_IMGUI_vs\meh_IMGUI_vs.vcxproj">
-      <Project>{e529d01e-4fea-419f-a866-dc8b6aaf3004}</Project>
-    </ProjectReference>
+    <ClCompile Include="..\include\ft_to_atlas\ft_to_atlas.cc" />
+    <ClCompile Include="..\src\meh_IMGUI.cc" />
+    <ClCompile Include="..\src\meh_IMGUI_widgets.cc" />
+    <ClCompile Include="..\src\meh_vk\meh_vulkan.cc" />
+    <ClCompile Include="..\src\meh_vk\meh_vulkan_functions.cc" />
+    <ClCompile Include="..\src\win32\meh_win32.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\meh_vk\meh_vulkan_functions.inl" />
+    <None Include="..\src\meh_vk\shaders\meh_vk.frag" />
+    <None Include="..\src\meh_vk\shaders\meh_vk.vert" />
+    <None Include="..\src\win32\meh_win32_functions.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

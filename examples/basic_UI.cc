@@ -1,10 +1,14 @@
 #define MEH_USE_RENDERER
-#include "meh_IMGUI/meh_IMGUI.hh"
-#include "meh_IMGUI/meh_IMGUI_widgets.hh"
+#include "../meh_IMGUI.hh"
+#include "../meh_IMGUI_widgets.hh"
 
 int main() {
 
-	if (!meh::create_window("something", 50, 50, 800, 900, MEH_BORDERLESS_WINDOW)) {
+	meh::MEH_WINDOW_INFO info = {
+	"cope_editor", 50,50,500,500,MEH_BORDERLESS_WINDOW
+	};
+
+	if (!meh::create_window(info)) {
 		std::cout << "Failed to create window!" << std::endl;
 	}
 
@@ -15,12 +19,21 @@ int main() {
 	}
 
 	std::vector<MEH_TEXTURE_FONT> fonts;
-	fonts.emplace_back(MEH_TEXTURE_FONT{"..\\Roboto-Bold.ttf", 14});
-	fonts.emplace_back(MEH_TEXTURE_FONT{ "..\\Roboto-Regular.ttf", 18 });
+	fonts.emplace_back(MEH_TEXTURE_FONT{"Roboto-Bold.ttf", 14});
+	fonts.emplace_back(MEH_TEXTURE_FONT{ "Roboto-Regular.ttf", 18 });
 
 	meh::create_font_texture(fonts,256,256, true,60);
 
 	meh::draw_background();
+
+	meh::widget fps_text = meh::text_layout("FPS : ");
+
+	meh::widget fps = meh::text_layout("00000000000");
+	fps->constraintLeft_toRightOf(fps_text, 35);
+	fps->constraintTop_toTopOf(fps_text);
+	fps_text->X(20);
+	fps_text->Y(20);
+
 
 	meh::widget btn1 = meh::button("some text!");
 	btn1->X(40); // set x position
@@ -45,6 +58,8 @@ int main() {
 			btn2->Y(uint32_t(sin((dt * 2)) * 100 + 150));
 			meh::render();
 			meh::calculate_delta_time();
+			std::string s = std::to_string((1 / meh::get_delta_time()));
+			meh::update_text(fps, s);
 		}
 	}
 

@@ -1,0 +1,20 @@
+
+# This library is intended to be used as a statically linked library, like glfw on windows.
+# configure windows build system
+ifeq (@(TUP_PLATFORM),win32)
+    CC = clang-cl
+    INCLUDE_DIR = /Iinclude /Iinclude/ft_to_atlas/include
+    CFLAGS = /std:c++20 -m64 /Zl /Gy /EHsc /arch:AVX2 -D_WIN32_WINNT=0x0A00 -DNOMINMAX
+    
+    # generates meh_IMGUI.lib 
+    : foreach src/*.cc include/ft_to_atlas/*.cc src/meh_vk/*.cc src/win32/*.cc |> $(CC) /Gd /MT /D "MEH_USE_RENDERER" $(INCLUDE_DIR) /Iinclude/meh_IMGUI/include/ft_to_atlas/include /Iinclude/meh_IMGUI/include $(CFLAGS) -c %f -o %o |> build/%B.o {meh_imgui}
+    : {meh_imgui} |> llvm-lib %f /OUT:%o |> build/meh_IMGUI.lib 
+
+endif 
+
+# building on linux. I'm not sure if I want it as a static library on linux
+ifeq (@(TUP_PLATFORM),linux)
+
+## ¯\_(‌ツ)‌_/¯
+
+endif

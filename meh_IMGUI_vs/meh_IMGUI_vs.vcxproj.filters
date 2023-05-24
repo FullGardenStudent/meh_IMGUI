@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\meh_vk">
+      <UniqueIdentifier>{8cc85771-9330-40d2-95d6-1eb02f6c9711}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\meh_vk\shaders">
+      <UniqueIdentifier>{d3d8dc48-5b46-477a-889c-9b52e9c7bf5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\win32">
+      <UniqueIdentifier>{97e7c637-6faa-4294-9060-b237c607a91c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\meh_allocator.hh">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\meh_default_settings.hh">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\meh_memory.hh">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\meh_widgets.hh">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\meh_vk\meh_vulkan.hh">
+      <Filter>Source Files\meh_vk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\meh_vk\meh_vulkan_functions.hh">
+      <Filter>Source Files\meh_vk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\meh_vk\meh_vulkan_objects.hh">
+      <Filter>Source Files\meh_vk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\win32\meh_win32.hh">
+      <Filter>Source Files\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\meh_IMGUI.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\meh_IMGUI_widgets.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ft_to_atlas\ft_to_atlas.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\meh_IMGUI.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\meh_IMGUI_widgets.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\meh_vk\meh_vulkan.cc">
+      <Filter>Source Files\meh_vk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\meh_vk\meh_vulkan_functions.cc">
+      <Filter>Source Files\meh_vk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\win32\meh_win32.cc">
+      <Filter>Source Files\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\ft_to_atlas\ft_to_atlas.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\meh_vk\meh_vulkan_functions.inl">
+      <Filter>Source Files\meh_vk</Filter>
+    </None>
+    <None Include="..\src\meh_vk\shaders\meh_vk.frag">
+      <Filter>Source Files\meh_vk\shaders</Filter>
+    </None>
+    <None Include="..\src\meh_vk\shaders\meh_vk.vert">
+      <Filter>Source Files\meh_vk\shaders</Filter>
+    </None>
+    <None Include="..\src\win32\meh_win32_functions.inl">
+      <Filter>Source Files\win32</Filter>
+    </None>
+  </ItemGroup>
+</Project>
