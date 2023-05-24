@@ -11,10 +11,10 @@ This repository additionally uses `vulkan` and `ft_to_atlas`, both of which are 
 
 Clone this repository with recursize flag
 ```git 
-git clone --recursize https://github.com/FullGardenStudent/meh_IMGUI
+git clone --recursive https://github.com/FullGardenStudent/meh_IMGUI
 ```
 ### Windows
-Since this repository requires clang-cl, you can get a pre-build binary from [here](https://releases.llvm.org/download.html) and install it if not installed already. Once you are done installing it, you can build the project with tup.
+Since this repository requires clang-cl, you can get a pre-build binary from [here](https://releases.llvm.org/download.html) and install it if not installed already. Once you are done installing it, you can build the project with tup. This will generate a `meh_IMGUI.lib` static library, which you can use along with `meh_IMGUI.hh` and `meh_IMGUI_windows.hh` header files. These three files are all you'll need to use this library.
 ```tup
 tup init  # initialize tup database
 tup       # run tup
@@ -28,4 +28,4 @@ tup       # run tup
 ```
 ## Development how?
 You can generate a `compile_commands.json` file using tup by running `tup compiledb`(of course, this should be run after running `tup init` or else it won't work) and chill with lsp and the text editor of your choise.\
-Additonally, there is also a `meh_IMGUI.sln` visual studio solution file for development on windows using visual studio😵
+There is also a `meh_IMGUI.sln` visual studio solution file for developing in windows using visual studio😵
